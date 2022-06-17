@@ -1,0 +1,99 @@
+@import './color-palette.scss';
+
+$theme: (
+	light: (
+		primary: (
+			bg-color: $grey-900,
+			border-color: rgba(white, 0.15),
+			color: white
+		),
+		secondary: (
+			bg-color: $deep-purple-600,
+			border-color: rgba(white, 0.15),
+			color: white
+		),
+		surface: (
+			bg-color: white,
+			border-color: rgba(black, 0.15),
+			color: rgba(black, 0.7),
+			border-color-input: rgba(black, .15)
+		),
+		background: (
+			bg-color: $grey-100,
+			border-color: rgba(black, 0.15),
+			color: rgba(black, 0.7)
+		),
+		success:  (
+			bg-color: $green-600,
+			border-color: rgba(black, 0.45),
+			color: white
+		),
+		error: (
+			bg-color: $red-600,
+			border-color: rgba(black, 0.45),
+			color: white
+		)
+	),
+	dark: (
+		primary: (
+			bg-color: $grey-700,
+			border-color: rgba(black, 0.15),
+			color: white
+		),
+		secondary: (
+			bg-color: $deep-purple-200,
+			border-color: rgba(white, 0.15),
+			color: black
+		),
+		surface: (
+			bg-color: $grey-800,
+			border-color: rgba(black, 0.45),
+			color: rgba(white, 0.9),
+			border-color-input: rgba(white, .35)
+		),
+		background: (
+			bg-color: #3a3a3a,
+			border-color: rgba(black, 0.45),
+			color: rgba(white, 0.9)
+		),
+		success:  (
+			bg-color: $green-300,
+			border-color: rgba(black, 0.45),
+			color: black
+		),
+		error: (
+			bg-color: $red-300,
+			border-color: rgba(black, 0.45),
+			color: black
+		)
+	)
+);
+
+@each $theme-name, $colors in $theme {
+	m-material[theme='#{$theme-name}'] {
+		@each $color-name, $color-palettes in $colors {
+			@each $prop-name, $value in $color-palettes {
+				$hash-name: --mdl-#{$prop-name}-#{$color-name};
+				$hash-prop: --mdl-theme-#{$theme-name}-#{$prop-name}-#{$color-name};
+				#{$hash-name}: var(#{$hash-prop}, #{$value});
+			}
+			
+			.bg-#{$color-name} {
+				background-color: var(--mdl-bg-color-#{$color-name});
+				color: var(--mdl-color-#{$color-name});
+				border-color: var(--mdl-border-color-#{$color-name});
+				--mdl-parent-bg-color: var(--mdl-bg-color-#{$color-name});
+				--mdl-parent-color: var(--mdl-color-#{$color-name});
+				--mdl-parent-border-color: var(--mdl-border-color-#{$color-name});
+			}
+			.border-#{$color-name}, .color-#{$color-name} {
+				color: var(--mdl-bg-color-#{$color-name});
+				--mdl-parent-color: var(--mdl-bg-color-#{$color-name});
+			}
+			.border-#{$color-name} {
+				border-color: var(--mdl-bg-color-#{$color-name});
+				--mdl-parent-border-color: var(--mdl-border-color-#{$color-name});
+			}
+		}
+	}
+}
