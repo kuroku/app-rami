@@ -10,6 +10,9 @@
 	import ModalRegister from './_home/components/ModalRegister.svelte';
 	import BetLoading from '../components/BetLoading.svelte';
 	import { userSession } from '../stores';
+	import Nav from '../components/Nav.svelte';
+	import Button from '$lib/mdl-ui/components/Button.svelte';
+	import ModalAutoBet from '../components/ModalAutoBet.svelte';
 	let modalLogin = false;
 	let modalRegister = false;
 	let bets: MarketCatalogue[] = [];
@@ -30,6 +33,11 @@
 		}
 		loading = false;
 	}
+
+	let modalAutoBet = false;
+	function openModalAutoBet() {
+		modalAutoBet = true;
+	}
 </script>
 
 <svelte:head>
@@ -40,6 +48,9 @@
 	<svelte:fragment slot="appbar">
 		<ToolsUser bind:openLogin={modalLogin} />
 	</svelte:fragment>
+	{#if $userSession}
+		<Nav />
+	{/if}
 	<Banner />
 	<BetTypeTabs bind:selectedTab onChange={getMarktCatalogue} />
 	{#await getMarktCatalogue()}
@@ -63,8 +74,12 @@
 	{/await}
 </Section>
 
+{#if $userSession}
+	<Button class="fab elevation-8" rounded size="lg" on:click={openModalAutoBet}>Auto bet</Button>
+{/if}
 <ModalLogin bind:open={modalLogin} bind:openRegister={modalRegister} />
 <ModalRegister bind:open={modalRegister} bind:openLogin={modalLogin} />
+<ModalAutoBet bind:open={modalAutoBet} on:finish={() => getMarktCatalogue()} />
 
 <style>
 	:global(#dashboard) {
@@ -72,5 +87,11 @@
 		gap: var(--mdl-margin-content);
 		grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
 		align-content: flex-start;
+	}
+	:global(button.fab) {
+		position: fixed !important;
+		bottom: 16px;
+		right: 16px;
+		z-index: 99;
 	}
 </style>

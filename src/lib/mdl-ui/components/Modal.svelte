@@ -1,7 +1,9 @@
 <script lang="ts">
 	import { fly, fade } from 'svelte/transition';
 	import { cubicIn, cubicOut } from 'svelte/easing';
+	import ProgressLinear from './ProgressLinear.svelte';
 	export let open: boolean = false;
+	export let loading = false;
 	export let closeWithBackdrop: boolean = true;
 	function close() {
 		if (closeWithBackdrop) {
@@ -19,6 +21,7 @@
 		out:fly={{ duration: 180, easing: cubicIn, y: 200 }}
 	>
 		<slot />
+		<ProgressLinear show={loading} />
 	</dialog>
 	<m-backdrop
 		in:fade={{ duration: 180, easing: cubicOut }}

@@ -6,6 +6,7 @@
 	import BetLoading from '../components/BetLoading.svelte';
 	import Bet from '../components/Bet.svelte';
 	import type { MarketCatalogue } from '../type/bet';
+	import Nav from '../components/Nav.svelte';
 	let bets: MarketCatalogue[];
 	async function getHistory() {
 		const { data, status } = await getHistoryRequest($userSession.tokenSession);
@@ -19,6 +20,9 @@
 	<svelte:fragment slot="appbar">
 		<ToolsUser />
 	</svelte:fragment>
+	{#if $userSession}
+		<Nav />
+	{/if}
 	{#await getHistory()}
 		{#each [1, 2, 3, 4, 5, 6, 7, 8, 9, 10] as _, key}
 			<BetLoading />

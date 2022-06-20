@@ -58,3 +58,14 @@ export const getHistoryRequest = (tokenSession: string) => {
 		{ validateStatus: () => true }
 	);
 };
+
+export const postAutoBetRequest = (
+	tokenSession: string,
+	body: { typeBet: string; amount: number }
+) => {
+	return request.post<{ result: MarketCatalogue[] }>(
+		'/api/v1/user/auto-bet',
+		{ tokenSession, ...body },
+		{ validateStatus: () => true }
+	);
+};

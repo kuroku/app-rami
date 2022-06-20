@@ -6,6 +6,7 @@ export interface MarketCatalogue {
 		percentage: number;
 		amount: number;
 		_id: string;
+		auto: boolean;
 	};
 	status?: string;
 	marketId: string;

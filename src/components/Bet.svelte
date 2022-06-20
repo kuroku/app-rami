@@ -5,6 +5,7 @@
 	import type { MarketCatalogue } from 'src/type/bet';
 	import moment from 'moment';
 	import { shortName } from '../utils/shortName';
+	import { theme } from '../stores';
 	type Status = 'WINNER' | 'LOSER' | 'ACTIVE';
 	export let bet: MarketCatalogue;
 	export let openLogin: boolean = false;
@@ -45,6 +46,10 @@
 </script>
 
 <Card id="bet" bg={colorStatus()}>
+	{#if bet.userBet?.auto}
+		<img src="/logo-{$theme === 'light' ? 'white' : 'black'}.svg" alt="" />
+		<span class="ab">auto</span>
+	{/if}
 	<p>{competitionName}</p>
 	<section class="sports">
 		<figure>
@@ -55,7 +60,11 @@
 			<h6>vs</h6>
 			<p>{result ? bet.status : s}</p>
 			{#if result}
-				<p>{status === 'WINNER' ? '+' : status === 'LOSER' ? '-' : ''}{bet.userBet.amount}$</p>
+				<p>
+					{status === 'WINNER' ? '+' : status === 'LOSER' ? '-' : ''}{bet.userBet.amount.toFixed(
+						1
+					)}$
+				</p>
 			{/if}
 		</div>
 		<figure>
@@ -92,6 +101,19 @@
 		display: flex;
 		height: auto;
 		flex-direction: column;
+		position: relative;
+	}
+	img {
+		width: 36px;
+		height: 36px;
+		position: absolute;
+		top: 8px;
+		left: 12px;
+	}
+	.ab {
+		position: absolute;
+		top: 36px;
+		left: 16px;
 	}
 	p {
 		text-align: center;
