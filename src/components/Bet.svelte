@@ -48,7 +48,7 @@
 <Card id="bet" bg={colorStatus()}>
 	{#if bet.userBet?.auto}
 		<img src="/logo-{$theme === 'light' ? 'white' : 'black'}.svg" alt="" />
-		<span class="ab">auto</span>
+		<span class="ab">{bet.userBet?.auto}</span>
 	{/if}
 	<p>{competitionName}</p>
 	<section class="sports">
@@ -61,6 +61,8 @@
 			<p>{result ? bet.status : s}</p>
 			{#if result}
 				<p>
+					{bet.userBet?.percentage}
+					<br />
 					{status === 'WINNER' ? '+' : status === 'LOSER' ? '-' : ''}{bet.userBet.amount.toFixed(
 						1
 					)}$
@@ -114,6 +116,7 @@
 		position: absolute;
 		top: 36px;
 		left: 16px;
+		text-transform: capitalize;
 	}
 	p {
 		text-align: center;
@@ -136,7 +139,7 @@
 		display: flex;
 		flex-direction: column;
 		align-items: center;
-		justify-content: space-between;
+		justify-content: center;
 		margin-bottom: 16px;
 		overflow: hidden;
 	}

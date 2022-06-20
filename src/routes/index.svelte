@@ -38,6 +38,12 @@
 	function openModalAutoBet() {
 		modalAutoBet = true;
 	}
+
+	$: {
+		if ($userSession) {
+			getMarktCatalogue();
+		}
+	}
 </script>
 
 <svelte:head>
