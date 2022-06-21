@@ -36,12 +36,15 @@
 
 	async function onSubmit() {
 		loading = true;
-		const { status } = await postAutoBetRequest($userSession.tokenSession, {
+		const { data, status } = await postAutoBetRequest($userSession.tokenSession, {
 			amount: Number(price),
 			typeBet: typeBetSelect
 		});
 		if (status === 201) {
 			open = false;
+			if (data.length === 0) {
+				alert('No bets found');
+			}
 			dispatch('finish');
 		} else {
 			alert('An error has occurred');

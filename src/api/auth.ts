@@ -63,7 +63,7 @@ export const postAutoBetRequest = (
 	tokenSession: string,
 	body: { typeBet: string; amount: number }
 ) => {
-	return request.post<{ result: MarketCatalogue[] }>(
+	return request.post<MarketCatalogue[]>(
 		'/api/v1/user/auto-bet',
 		{ tokenSession, ...body },
 		{ validateStatus: () => true }
