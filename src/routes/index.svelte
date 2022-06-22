@@ -70,7 +70,9 @@
 			{/each}
 		{:else}
 			{#each bets as bet}
-				<Bet {bet} bind:openLogin={modalLogin} on:finish={() => getMarktCatalogue()} />
+				{#if bet.competition}
+					<Bet {bet} bind:openLogin={modalLogin} on:finish={() => getMarktCatalogue()} />
+				{/if}
 			{:else}
 				<h6>No bet today!</h6>
 			{/each}

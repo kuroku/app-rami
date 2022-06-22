@@ -53,7 +53,7 @@
 	<p>{competitionName}</p>
 	<section class="sports">
 		<figure>
-			<i class="logo">{homeTeam.runnerName[0]}</i>
+			<i class="logo">{shortName(homeTeam.runnerName)}</i>
 			<span title={homeTeam.runnerName}>{homeTeam.runnerName}</span>
 		</figure>
 		<div class="content">
@@ -70,7 +70,7 @@
 			{/if}
 		</div>
 		<figure>
-			<i class="logo">{awayTeam.runnerName[0]}</i>
+			<i class="logo">{shortName(awayTeam.runnerName)}</i>
 			<span title={awayTeam.runnerName}>{awayTeam.runnerName}</span>
 		</figure>
 	</section>
